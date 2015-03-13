@@ -8,6 +8,7 @@
 
 static CGFloat const kDefaultNavigationBarFontSize = 22;
 static CGFloat const kDefaultTabBarFontSize = 14;
+static CGFloat const kDefaultLabelFontSize = 14;
 
 #import "MAThemeKit.h"
 
@@ -20,7 +21,7 @@ static CGFloat const kDefaultTabBarFontSize = 14;
     
     [self customizeNavigationBarColor:primaryColor textColor:secondaryColor fontName:fontName fontSize:kDefaultNavigationBarFontSize buttonColor:secondaryColor];
     [self customizeNavigationBarButtonColor:secondaryColor];
-    [self customizeTabBarColor:primaryColor textColor:secondaryColor fontName:fontName fontSize:kDefaultTabBarFontSize];
+    [self customizeTabBarColor:secondaryColor textColor:secondaryColor fontName:fontName fontSize:kDefaultTabBarFontSize];
     [self customizeSwitchOnColor:primaryColor];
     [self customizeSearchBarColor:primaryColor buttonTintColor:secondaryColor];
     [self customizeActivityIndicatorColor:primaryColor];
@@ -28,9 +29,8 @@ static CGFloat const kDefaultTabBarFontSize = 14;
     [self customizeSegmentedControlWithMainColor:primaryColor secondaryColor:secondaryColor];
     [self customizeSliderColor:primaryColor];
     [self customizePageControlCurrentPageColor:primaryColor];
-    [self customizeToolbarTintColor:secondaryColor barTintColor:primaryColor];
-    [self customizeLabelColor:primaryColor fontName:fontName fontSize:kDefaultNavigationBarFontSize];
-    [self customizeBarButtonItemColor:secondaryColor fontName:fontName fontSize:kDefaultNavigationBarFontSize];
+    [self customizeToolbarTintColor:primaryColor];
+    [self customizeUILabelFont:fontName];
 }
 
 
@@ -47,7 +47,6 @@ static CGFloat const kDefaultTabBarFontSize = 14;
     [[UINavigationBar appearance] setTintColor:buttonColor];
     
     UIFont *font = [UIFont fontWithName:fontName size:fontSize];
-    
     if (font) {
         [[UINavigationBar appearance] setTitleTextAttributes:@{
                                                                NSForegroundColorAttributeName: textColor,
@@ -76,7 +75,6 @@ static CGFloat const kDefaultTabBarFontSize = 14;
     [[UITabBar appearance] setTintColor:textColor];
     
     UIFont *font = [UIFont fontWithName:fontName size:fontSize];
-    
     if (font) {
         [[UITabBarItem appearance] setTitleTextAttributes:@{NSFontAttributeName: font} forState:UIControlStateNormal];
     }
@@ -116,7 +114,7 @@ static CGFloat const kDefaultTabBarFontSize = 14;
 #pragma mark - UISegmentedControl
 
 + (void)customizeSegmentedControlWithMainColor:(UIColor *)mainColor secondaryColor:(UIColor *)secondaryColor {
-    [[UISegmentedControl appearance] setTintColor:mainColor];
+    [[UISegmentedControl appearance] setTintColor:secondaryColor];
 }
 
 
@@ -129,17 +127,8 @@ static CGFloat const kDefaultTabBarFontSize = 14;
 
 #pragma mark - UIToolbar
 
-+ (void)customizeToolbarTintColor:(UIColor *)tintColor barTintColor:(UIColor *)barTintColor {
-    [self customizeToolbarTintColor:tintColor];
-    [self customizeToolbarBarTintColor:barTintColor];
-}
-
 + (void)customizeToolbarTintColor:(UIColor *)tintColor {
     [[UIToolbar appearance] setTintColor:tintColor];
-}
-
-+ (void)customizeToolbarBarTintColor:(UIColor *)barTintColor {
-    [[UIToolbar appearance] setBarTintColor:barTintColor];
 }
 
 
@@ -153,31 +142,8 @@ static CGFloat const kDefaultTabBarFontSize = 14;
 
 #pragma mark - UILabel
 
-+ (void)customizeLabelColor:(UIColor *)textColor fontName:(NSString *)fontName fontSize:(CGFloat)fontSize {
-    [[UILabel appearance] setTextColor:textColor];
-    
-    UIFont *font = [UIFont fontWithName:fontName size:fontSize];
-    
-    if (font) {
-        [[UILabel appearance] setFont:font];
-    }
-}
-
-#pragma mark - UITableView
-
-+ (void)customizeTableViewColor:(UIColor *)mainColor secondaryColor:(UIColor *)secondaryColor {
-    [[UITableView appearance] setTintColor:mainColor];
-    [[UITableView appearance] setSeparatorColor:secondaryColor];
-}
-
-
-#pragma mark - UIBarButtonItem
-
-+ (void)customizeBarButtonItemColor:(UIColor *)mainColor fontName:(NSString *)fontName fontSize:(CGFloat)fontSize {
-    [[UIBarButtonItem appearance] setTitleTextAttributes:@{
-                                                           NSFontAttributeName: [UIFont fontWithName:fontName size:fontSize],
-                                                           NSForegroundColorAttributeName: mainColor
-                                                           } forState:UIControlStateNormal];
++ (void)customizeUILabelFont:(NSString *) fontName {
+    [[UILabel appearance] setFont:[UIFont fontWithName:fontName size:kDefaultLabelFontSize]];
 }
 
 
